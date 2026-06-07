@@ -1,3 +1,16 @@
+Metadata-Version: 2.4
+Name: hjc-claw
+Version: 0.1.0
+Summary: A local automation CLI agent without LLM/API dependencies
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: rich>=13.0.0
+Requires-Dist: colorama>=0.4.6
+Requires-Dist: requests>=2.28.0
+Requires-Dist: beautifulsoup4>=4.12.0
+Requires-Dist: pyautogui>=0.9.54
+
 # HJC CLAW 🦞
 
 > **LLM/API 없이 작동하는 고도화된 로컬 자동화 CLI 에이전트**

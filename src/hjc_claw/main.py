@@ -13,7 +13,7 @@ console = Console()
 
 def main():
     console.print(Panel.fit(
-        "[bold cyan]NULL CLAW[/bold cyan]\n[dim]Local Automation Agent (No-LLM)[/dim]",
+        "[bold cyan]HJC CLAW[/bold cyan]\n[dim]Local Automation Agent (No-LLM)[/dim]",
         border_style="cyan"
     ))
 

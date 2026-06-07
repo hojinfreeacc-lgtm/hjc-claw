@@ -5,7 +5,7 @@ from pathlib import Path
 
 class Memory:
     def __init__(self):
-        self.db_path = Path.home() / ".null-claw" / "history.db"
+        self.db_path = Path.home() / ".hjc-claw" / "history.db"
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self._init_db()
 

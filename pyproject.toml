@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "null-claw"
+name = "hjc-claw"
 version = "0.1.0"
 description = "A local automation CLI agent without LLM/API dependencies"
 readme = "README.md"
@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.scripts]
-null-claw = "null_claw.main:main"
+hjc-claw = "hjc_claw.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

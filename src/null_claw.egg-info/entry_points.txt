@@ -1,2 +1,0 @@
-[console_scripts]
-null-claw = null_claw.main:main

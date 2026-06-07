@@ -1,0 +1,2 @@
+[console_scripts]
+hjc-claw = hjc_claw.main:main

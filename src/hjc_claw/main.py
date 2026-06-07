@@ -4,7 +4,7 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 
 # 플러그인 로드 (임포트하는 것만으로 registry에 등록됨)
-from .plugins import file_plugin
+from .plugins import file_plugin, security_plugin, mole_plugin
 from .core.decision import DecisionEngine
 from .core.executor import Executor
 from .utils.memory import Memory

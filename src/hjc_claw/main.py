@@ -16,14 +16,24 @@ from rich.table import Table
 from rich.live import Live
 
 def main():
-    # API 키 체크 안내
-    if not os.getenv("OPENAI_API_KEY") and not os.getenv("HJC_USE_OLLAMA"):
-        console.print("[yellow]💡 Tip: Set OPENAI_API_KEY to unlock full AI capabilities (Manus-style).[/yellow]")
+    # API 키 및 모델 체크 안내
+    active_ai = "None"
+    if os.getenv("HJC_USE_OLLAMA") == "true":
+        active_ai = f"Ollama ({os.getenv('HJC_OLLAMA_MODEL', 'gemma2')})"
+    elif os.getenv("GOOGLE_API_KEY"):
+        active_ai = "Google Gemini"
+    elif os.getenv("OPENAI_API_KEY"):
+        active_ai = "OpenAI"
+    
+    if active_ai == "None":
+        console.print("[yellow]💡 Tip: Set GOOGLE_API_KEY or OPENAI_API_KEY to unlock AI features.[/yellow]")
+        console.print("[yellow]   Or use local Gemma via Ollama: export HJC_USE_OLLAMA='true'[/yellow]")
 
     console.print(Panel(
-        "[bold cyan]HJC CLAW v1.1.0 (AI Edition)[/bold cyan]\n"
-        "[dim]The Ultimate Hybrid AI Automation & Security Agent[/dim]\n"
-        "[blue]Integrated: AI Brain + Open Claw + Null Claw + Security[/blue]",
+        f"[bold cyan]HJC CLAW v1.2.0 (Multi-AI Edition)[/bold cyan]\n"
+        f"[dim]The Ultimate Hybrid AI Automation & Security Agent[/dim]\n"
+        f"[blue]Active AI: {active_ai}[/blue]\n"
+        f"[blue]Integrated: Google Gemma/Gemini + OpenAI + Open Claw + Security[/blue]",
         title="[bold white]System Ready[/bold white]",
         border_style="cyan",
         padding=(1, 2)

@@ -27,9 +27,23 @@ Inspired by the "Mole" utility, this plugin automatically identifies and removes
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start (One-liner Install)
 
-### Installation
+Install directly via pip without cloning or authentication:
+
+```bash
+pip install git+https://github.com/hojinfreeacc-lgtm/hjc-claw.git
+```
+
+After installation, simply run:
+```bash
+hjc-claw
+```
+
+---
+
+## 🛠️ Manual Installation
+
 ```bash
 git clone https://github.com/hojinfreeacc-lgtm/hjc-claw.git
 cd hjc-claw

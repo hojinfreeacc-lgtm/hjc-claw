@@ -11,9 +11,12 @@ src/hjc_claw.egg-info/top_level.txt
 src/hjc_claw/core/__init__.py
 src/hjc_claw/core/decision.py
 src/hjc_claw/core/executor.py
+src/hjc_claw/core/interpreter.py
 src/hjc_claw/core/registry.py
 src/hjc_claw/plugins/__init__.py
 src/hjc_claw/plugins/base.py
 src/hjc_claw/plugins/file_plugin.py
+src/hjc_claw/plugins/mole_plugin.py
+src/hjc_claw/plugins/security_plugin.py
 src/hjc_claw/utils/__init__.py
 src/hjc_claw/utils/memory.py

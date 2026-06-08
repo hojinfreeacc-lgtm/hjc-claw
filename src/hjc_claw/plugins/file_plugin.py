@@ -21,6 +21,11 @@ class FilePlugin(BasePlugin):
                     "keywords": ["삭제", "지워", "remove", "delete"],
                     "action": "delete_file",
                     "dangerous": True
+                },
+                {
+                    "intent": "file_search_complex",
+                    "keywords": ["찾아줘", "검색해", "find", "search"],
+                    "action": "search_files_dynamic"
                 }
             ]
         )
@@ -47,3 +52,7 @@ class FilePlugin(BasePlugin):
             return f"'{target}'을(를) 찾을 수 없습니다."
         except Exception as e:
             return f"삭제 실패: {str(e)}"
+
+    def search_files_dynamic(self, **kwargs):
+        # 이 메서드는 실제로 호출되지 않고 executor에서 interpreter를 통해 처리됨
+        pass

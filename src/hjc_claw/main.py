@@ -11,10 +11,18 @@ from .utils.memory import Memory
 
 console = Console()
 
+from rich.status import Status
+from rich.table import Table
+from rich.live import Live
+
 def main():
-    console.print(Panel.fit(
-        "[bold cyan]HJC CLAW[/bold cyan]\n[dim]Local Automation Agent (No-LLM)[/dim]",
-        border_style="cyan"
+    console.print(Panel(
+        "[bold cyan]HJC CLAW v1.0.0[/bold cyan]\n"
+        "[dim]The Ultimate Local Automation & Security Agent[/dim]\n"
+        "[blue]Combined: Open Claw + Null Claw + Security + Mole[/blue]",
+        title="[bold white]System Ready[/bold white]",
+        border_style="cyan",
+        padding=(1, 2)
     ))
 
     engine = DecisionEngine()
@@ -29,17 +37,16 @@ def main():
                 console.print("[yellow]Goodbye![/yellow]")
                 break
 
-            # 1. 분석
-            analysis = engine.analyze(user_input)
-            
-            # 2. 분석 정보 표시 (디버그용/투명성)
-            console.print(f"[dim]인식: {analysis['intent']} (신뢰도: {analysis['confidence']*100}%)[/dim]")
+            with Status("[bold yellow]Analyzing intent...[/bold yellow]", spinner="dots") as status:
+                # 1. 분석
+                analysis = engine.analyze(user_input)
+                status.update(f"[bold blue]Executing: {analysis['intent']}[/bold blue]")
 
-            # 3. 실행
-            result = executor.execute(analysis)
+                # 2. 실행
+                result = executor.execute(analysis)
             
-            # 4. 결과 출력
-            console.print(Panel(result, title="[bold green]Result[/bold green]", border_style="green"))
+            # 3. 결과 출력
+            console.print(Panel(result, title=f"[bold green]✓ {analysis['intent']} Result[/bold green]", border_style="green"))
 
         except KeyboardInterrupt:
             console.print("\n[yellow]Interrupted by user. Type 'exit' to quit.[/yellow]")

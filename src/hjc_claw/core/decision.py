@@ -31,8 +31,13 @@ class DecisionEngine:
         scores.sort(key=lambda x: x[0], reverse=True)
         best_score, best_intent, best_info = scores[0]
 
-        # 파라미터 추출 (간소화된 버전, 실제로는 더 복잡한 로직 가능)
+        # 파라미터 추출
         params = self._extract_params(text, best_intent)
+
+        # 동적 인터프리터 사용 여부 결정
+        use_interpreter = False
+        if any(kw in text for kw in ["코드", "실행", "찾아", "분석"]):
+            use_interpreter = True
 
         return {
             "intent": best_intent,
@@ -41,6 +46,7 @@ class DecisionEngine:
             "params": params,
             "confidence": round(best_score, 2),
             "dangerous": best_info["dangerous"],
+            "use_interpreter": use_interpreter,
             "raw": text
         }
 

@@ -29,11 +29,23 @@ HJC CLAW는 외부 API(OpenAI, Claude 등)나 무거운 로컬 LLM을 전혀 사
 
 ---
 
-## 🚀 설치 방법
+## 🚀 초간편 설치 방법 (Quick Install)
+
+인증이나 클론 없이 터미널에서 아래 한 줄만 입력하면 즉시 설치됩니다:
+
+```bash
+pip install git+https://github.com/hojinfreeacc-lgtm/hjc-claw.git
+```
+
+설치 후 터미널 어디서든 `hjc-claw`를 입력하여 실행하세요.
+
+---
+
+## 🛠 수동 설치 방법
 
 ```bash
 # 1. 레포지토리 클론
-git clone https://github.com/manus-ai/hjc-claw.git
+git clone https://github.com/hojinfreeacc-lgtm/hjc-claw.git
 cd hjc-claw
 
 # 2. 패키지 설치

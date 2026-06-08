@@ -10,6 +10,7 @@ from rich.panel import Panel
 from typing import Dict, Any
 from .registry import registry
 from .interpreter import CodeInterpreter
+from .ai_brain import AIBrain
 
 console = Console()
 
@@ -18,6 +19,7 @@ class Executor:
         self.registry = registry
         self.memory = memory
         self.interpreter = CodeInterpreter()
+        self.ai = AIBrain()
 
     def execute(self, analysis: Dict[str, Any]) -> str:
         """분석된 명령을 실행합니다."""
@@ -40,16 +42,20 @@ class Executor:
             return f"오류: 플러그인 '{plugin_name}'을 찾을 수 없습니다."
 
         try:
-            # 1. 특수 의도: 동적 코드 실행 (Open Claw 스타일)
+            # 1. AI 전용 작업 (Manus 스타일)
+            if analysis.get("use_ai") and analysis["intent"] == "ai_task":
+                return self.ai.ask(analysis["params"]["query"])
+
+            # 2. 특수 의도: 동적 코드 실행 (Open Claw 스타일)
             if analysis.get("use_interpreter"):
-                code = self.interpreter.generate_code_from_intent(analysis["intent"], params)
+                code = self.interpreter.generate_code_from_intent(analysis["intent"], params, analysis["raw"])
                 if code:
                     res = self.interpreter.execute_code(code)
                     result = res["output"] if res["success"] else f"Error: {res['error']}"
                 else:
                     result = "Error: Could not generate code for this intent."
             else:
-                # 2. 일반 플러그인 실행 (Null Claw 스타일)
+                # 3. 일반 플러그인 실행 (Null Claw 스타일)
                 method = getattr(plugin_instance, action_name)
                 result = method(**params)
             

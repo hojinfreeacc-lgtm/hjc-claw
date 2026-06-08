@@ -4,7 +4,7 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 
 # 플러그인 로드 (임포트하는 것만으로 registry에 등록됨)
-from .plugins import file_plugin, security_plugin, mole_plugin
+from .plugins import file_plugin, security_plugin, mole_plugin, ai_web_plugin
 from .core.decision import DecisionEngine
 from .core.executor import Executor
 from .utils.memory import Memory
@@ -16,10 +16,14 @@ from rich.table import Table
 from rich.live import Live
 
 def main():
+    # API 키 체크 안내
+    if not os.getenv("OPENAI_API_KEY") and not os.getenv("HJC_USE_OLLAMA"):
+        console.print("[yellow]💡 Tip: Set OPENAI_API_KEY to unlock full AI capabilities (Manus-style).[/yellow]")
+
     console.print(Panel(
-        "[bold cyan]HJC CLAW v1.0.0[/bold cyan]\n"
-        "[dim]The Ultimate Local Automation & Security Agent[/dim]\n"
-        "[blue]Combined: Open Claw + Null Claw + Security + Mole[/blue]",
+        "[bold cyan]HJC CLAW v1.1.0 (AI Edition)[/bold cyan]\n"
+        "[dim]The Ultimate Hybrid AI Automation & Security Agent[/dim]\n"
+        "[blue]Integrated: AI Brain + Open Claw + Null Claw + Security[/blue]",
         title="[bold white]System Ready[/bold white]",
         border_style="cyan",
         padding=(1, 2)

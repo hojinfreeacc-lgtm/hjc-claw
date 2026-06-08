@@ -8,10 +8,12 @@ import re
 import difflib
 from typing import Dict, Any, List, Tuple
 from .registry import registry
+from .ai_brain import AIBrain
 
 class DecisionEngine:
     def __init__(self):
         self.registry = registry
+        self.ai = AIBrain()
 
     def analyze(self, text: str) -> Dict[str, Any]:
         """사용자 입력을 분석하여 최적의 의도와 파라미터를 반환합니다."""
@@ -25,8 +27,9 @@ class DecisionEngine:
                 scores.append((score, intent_name, info))
 
         # 가장 높은 점수의 의도 선택
-        if not scores:
-            return self._unknown(text)
+        if not scores or scores[0][0] < 0.5:
+            # 신뢰도가 낮으면 AI에게 물어봄 (Hybrid AI)
+            return self._ai_analyze(text)
 
         scores.sort(key=lambda x: x[0], reverse=True)
         best_score, best_intent, best_info = scores[0]
@@ -92,6 +95,43 @@ class DecisionEngine:
             params["extension"] = exts[0]
 
         return params
+
+    def _ai_analyze(self, text: str) -> Dict[str, Any]:
+        """LLM을 사용하여 의도를 파악합니다."""
+        if not self.ai.api_key and not self.ai.use_ollama:
+            return self._unknown(text)
+
+        prompt = f"Analyze this command: '{text}'. Map it to one of these intents: {list(self.registry.get_all_intents().keys())} or 'ai_task'. Return JSON only: {{'intent': '...', 'reason': '...'}}"
+        try:
+            res = self.ai.ask(prompt, "You are a command parser. Return JSON.")
+            data = json.loads(res.replace("```json", "").replace("```", ""))
+            intent = data.get("intent", "ai_task")
+            
+            if intent in self.registry.get_all_intents():
+                info = self.registry.get_all_intents()[intent]
+                return {
+                    "intent": intent,
+                    "plugin": info["plugin"],
+                    "action": info["action"],
+                    "params": self._extract_params(text, intent),
+                    "confidence": 0.9,
+                    "dangerous": info.get("dangerous", False),
+                    "raw": text
+                }
+            
+            # 규칙에 없는 명령은 범용 AI 작업으로 분류
+            return {
+                "intent": "ai_task",
+                "plugin": None,
+                "action": None,
+                "params": {"query": text},
+                "confidence": 1.0,
+                "dangerous": False,
+                "use_ai": True,
+                "raw": text
+            }
+        except:
+            return self._unknown(text)
 
     def _unknown(self, raw: str) -> Dict[str, Any]:
         return {

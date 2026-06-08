@@ -10,12 +10,14 @@ import traceback
 from typing import Dict, Any
 from rich.console import Console
 from rich.syntax import Syntax
+from .ai_brain import AIBrain
 
 console = Console()
 
 class CodeInterpreter:
     def __init__(self):
         self.globals = {}
+        self.ai = AIBrain()
         # 기본적으로 유용한 라이브러리 미리 임포트
         exec("import os, sys, shutil, datetime, math, re, pathlib", self.globals)
 
@@ -52,18 +54,15 @@ class CodeInterpreter:
             "error": error
         }
 
-    def generate_code_from_intent(self, intent: str, params: Dict[str, Any]) -> str:
+    def generate_code_from_intent(self, intent: str, params: Dict[str, Any], raw_text: str = "") -> str:
         """분석된 의도와 파라미터를 바탕으로 실행 가능한 코드를 생성합니다."""
-        # 이 부분은 Rule-based로 복잡한 로직을 코드로 변환하는 템플릿 엔진 역할을 합니다.
+        # 1. 규칙 기반 템플릿 (빠름)
         if intent == "file_search_complex":
             ext = params.get("extension", "*")
-            return f"""
-import pathlib
-count = 0
-print(f"Searching for {ext} files...")
-for p in pathlib.Path('.').rglob('*.{ext}'):
-    print(f"Found: {{p}}")
-    count += 1
-print(f"Total found: {{count}}")
-"""
+            return f"import pathlib\nfor p in pathlib.Path('.').rglob('*.{ext}'): print(f'Found: {{p}}')"
+        
+        # 2. AI 기반 코드 생성 (Manus 스타일)
+        if self.ai.api_key or self.ai.use_ollama:
+            return self.ai.generate_code(raw_text)
+            
         return ""

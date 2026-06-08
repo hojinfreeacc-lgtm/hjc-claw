@@ -24,6 +24,14 @@ HJC CLAW는 외부 API(OpenAI, Claude 등)나 무거운 로컬 LLM을 전혀 사
 pip install git+https://github.com/hojinfreeacc-lgtm/hjc-claw.git
 ```
 
+### 🧠 AI 기능 활성화 (Manus 스타일)
+AI 기능을 사용하려면 OpenAI API 키를 설정하세요:
+```bash
+export OPENAI_API_KEY='your-key-here'
+# 또는 로컬 Ollama 사용 시
+export HJC_USE_OLLAMA='true'
+```
+
 설치 후 터미널 어디서든 `hjc-claw`를 입력하여 실행하세요.
 
 ---

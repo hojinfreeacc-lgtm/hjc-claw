@@ -1,86 +1,74 @@
-# HJC CLAW 🦞 — Security & Automation Agent
+# 🦅 HJC CLAW (v1.2.0)
 
-HJC CLAW is a high-performance, LLM-free local automation agent designed for developers and security enthusiasts. It features a modular plugin system, a fuzzy-logic decision engine, and built-in security auditing tools.
-
----
-
-## 🛡️ Security Features (Ethical Hacking)
-
-HJC CLAW now includes a dedicated security toolkit for local auditing and network reconnaissance.
-
-| Command | Description | Example |
-| :--- | :--- | :--- |
-| `port scan` | Scans common ports on localhost to identify active services. | "scan my ports" |
-| `network info` | Displays local IP, hostname, and OS architecture. | "show network info" |
-| `hash` | Generates a SHA-256 hash for a specific file. | "hash 'config.py'" |
+**HJC CLAW** is a **Hybrid AI Automation Agent** that combines local OS control, system automation, and powerful AI reasoning. It integrates the execution power of Open Interpreter with a local-first, security-centric design to intelligently manage your PC.
 
 ---
 
-## 🧹 Mole Cleaner (Dummy File Removal)
+## ✨ Key Features
 
-Inspired by the "Mole" utility, this plugin automatically identifies and removes development waste.
-
-| Command | Description | Example |
-| :--- | :--- | :--- |
-| `mole` | Recursively removes `__pycache__`, `.log`, `.DS_Store`, etc. | "run mole cleanup" |
-| `analyze space` | Calculates potential space savings from dummy files. | "analyze my space" |
+- **🧠 Multi-AI Brain:** Supports Google Gemini, OpenAI, and local Gemma (via Ollama), allowing you to choose the best AI for your needs.
+- **💻 Dynamic Interpreter:** For complex commands beyond predefined rules, the AI generates Python code on-the-fly and executes it safely.
+- **🛡️ Security Auditing:** Built-in tools for port scanning, network analysis, hash verification, and other white-hat security tasks.
+- **🧹 Mole Cleaner:** Intelligently detects and removes unnecessary dummy files (cache, logs, temp) to optimize storage space.
+- **🌐 AI Web Search:** Analyzes and summarizes web search results to deliver key information quickly.
+- **🔒 Local First:** All tasks are performed locally, and depending on your AI model choice, it can operate in a completely offline environment.
 
 ---
 
-## 🚀 Quick Start (One-liner Install)
+## 🚀 Quick Install
 
-Install directly via pip without cloning or authentication:
+Install or update instantly from your terminal without cloning or authentication:
 
 ```bash
-pip install git+https://github.com/hojinfreeacc-lgtm/hjc-claw.git
-```
-
-After installation, simply run:
-```bash
-hjc-claw
+pip install --upgrade git+https://github.com/hojinfreeacc-lgtm/hjc-claw.git
 ```
 
 ---
 
-## 🛠️ Manual Installation
+## 🧠 AI Setup
 
+To enable intelligent features, set the environment variables for your preferred model.
+
+### 1. Google Gemini (Recommended - Fast & Powerful)
 ```bash
-git clone https://github.com/hojinfreeacc-lgtm/hjc-claw.git
-cd hjc-claw
-pip install .
+export GOOGLE_API_KEY='your-gemini-api-key'
 ```
 
-### Usage
-Run the agent from any terminal:
+### 2. Local Google Gemma (Ollama - Secure & Offline)
 ```bash
-hjc-claw
+export HJC_USE_OLLAMA='true'
+export HJC_OLLAMA_MODEL='gemma2' # Options: gemma, llama3, etc.
+```
+
+### 3. OpenAI
+```bash
+export OPENAI_API_KEY='your-openai-api-key'
 ```
 
 ---
 
-## 🛠️ Complete Command Reference
+## 💻 Usage
 
-### File Management
-- `list files`: List directory contents.
-- `delete file`: Remove files or folders (Requires confirmation).
+After installation, simply type `hjc-claw` in your terminal.
 
-### Security & Hacking
-- `port scan`: Identify open ports on your machine.
-- `network info`: Check local network configuration.
-- `hash [file]`: Verify file integrity via SHA-256.
-
-### System Optimization
-- `mole`: Clean up `__pycache__`, temporary logs, and system junk.
-- `analyze space`: See how much space you can recover.
+### Example Commands
+- **AI Tasks:** "Create a lotto number generator in Python and run it."
+- **Web Search:** "Search for the latest AI news and summarize it."
+- **Security:** "Scan my local ports," "Show network configuration."
+- **System Cleanup:** "Run mole cleanup," "Analyze dummy files."
+- **File Management:** "Find all .txt files and move them to the Documents folder."
 
 ---
 
-## 🏗️ Architecture
-- **Decision Engine**: Uses weighted fuzzy matching for intent recognition.
-- **Registry System**: Plug-and-play architecture for adding new tools.
-- **Human-in-the-loop**: Safety guardrails for destructive commands.
+## 🛠 Architecture
+
+1. **Decision Engine:** A hybrid system combining rule-based matching and AI reasoning.
+2. **Plugin Registry:** An extensible structure to easily add and manage new tools.
+3. **Safe Executor:** A guardrail system that requests user approval before executing dangerous commands.
+4. **Context Memory:** Remembers past commands and results for continuous task execution.
 
 ---
 
-## ⚖️ License
-MIT License
+## 🔗 Links
+- **GitHub:** [https://github.com/hojinfreeacc-lgtm/hjc-claw](https://github.com/hojinfreeacc-lgtm/hjc-claw)
+- **License:** MIT License
